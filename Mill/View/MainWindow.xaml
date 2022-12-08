@@ -1,0 +1,769 @@
+﻿<Window x:Class="Mill.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:local="clr-namespace:Mill"
+        Title="Malom játék" Height="800" Width="714">
+    <Window.Resources>
+        <ResourceDictionary Source="CircularButton.xaml" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Fájl">
+                <MenuItem Header="Új játék" Command="{Binding NewGameCommand}" />
+                <Separator />
+                <MenuItem Header="Játék betöltése..." Command="{Binding LoadGameCommand}" />
+                <MenuItem Header="Játék mentése..." Command="{Binding SaveGameCommand}" />
+                <Separator />
+                <MenuItem Header="Kilépés" Command="{Binding ExitCommand}" />
+            </MenuItem>
+        </Menu>
+        <!--
+        <ItemsControl Grid.Row="1" ItemsSource = "{Binding Fields}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Row" Value="7" />
+                    <Setter Property="Grid.Column" Value="7"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        -->
+        <Grid Name="contentParent" Grid.Row ="1">
+            <Grid Name ="boardGrid" ShowGridLines="False" Panel.ZIndex="1000">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name ="Button0" Grid.Row="0" Grid.Column="0" Width="30" Height="30" Command="{Binding Fields[0].StepCommand}" CommandParameter="{Binding Fields[0].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[0].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[0].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[0].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button1" Grid.Row="0" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[1].StepCommand}" CommandParameter="{Binding Fields[1].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[1].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[1].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[1].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button2" Grid.Row="0" Grid.Column="7" Width="30" Height="30" Command="{Binding Fields[2].StepCommand}" CommandParameter="{Binding Fields[2].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[2].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[2].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[2].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button3" Grid.Row="1" Grid.Column="1" Width="30" Height="30" Command="{Binding Fields[3].StepCommand}" CommandParameter="{Binding Fields[3].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[3].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[3].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[3].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button4" Grid.Row="1" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[4].StepCommand}" CommandParameter="{Binding Fields[4].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[4].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[4].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[4].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button5" Grid.Row="1" Grid.Column="5" Width="30" Height="30" Command="{Binding Fields[5].StepCommand}" CommandParameter="{Binding Fields[5].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[5].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[5].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[5].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button6" Grid.Row="2" Grid.Column="2" Width="30" Height="30" Command="{Binding Fields[6].StepCommand}" CommandParameter="{Binding Fields[6].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[6].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[6].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[6].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button7" Grid.Row="2" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[7].StepCommand}" CommandParameter="{Binding Fields[7].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[7].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[7].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[7].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button8" Grid.Row="2" Grid.Column="4" Width="30" Height="30" Command="{Binding Fields[8].StepCommand}" CommandParameter="{Binding Fields[8].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[8].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[8].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[8].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button9" Grid.Row="3" Grid.Column="0" Width="30" Height="30" Command="{Binding Fields[9].StepCommand}" CommandParameter="{Binding Fields[9].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[9].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[9].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[9].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button10" Grid.Row="3" Grid.Column="1" Width="30" Height="30" Command="{Binding Fields[10].StepCommand}" CommandParameter="{Binding Fields[10].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[10].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[10].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[10].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button11" Grid.Row="3" Grid.Column="2" Width="30" Height="30" Command="{Binding Fields[11].StepCommand}" CommandParameter="{Binding Fields[11].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[11].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[11].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[11].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button12" Grid.Row="3" Grid.Column="4" Width="30" Height="30" Command="{Binding Fields[12].StepCommand}" CommandParameter="{Binding Fields[12].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[12].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[12].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[12].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button13" Grid.Row="3" Grid.Column="5" Width="30" Height="30" Command="{Binding Fields[13].StepCommand}" CommandParameter="{Binding Fields[13].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[13].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[13].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[13].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button14" Grid.Row="3" Grid.Column="6" Width="30" Height="30" Command="{Binding Fields[14].StepCommand}" CommandParameter="{Binding Fields[14].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[14].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[14].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[14].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button15" Grid.Row="4" Grid.Column="2" Width="30" Height="30" Command="{Binding Fields[15].StepCommand}" CommandParameter="{Binding Fields[15].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[15].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[15].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[15].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button16" Grid.Row="4" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[16].StepCommand}" CommandParameter="{Binding Fields[16].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[16].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[16].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[16].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button17" Grid.Row="4" Grid.Column="4" Width="30" Height="30" Command="{Binding Fields[17].StepCommand}" CommandParameter="{Binding Fields[17].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[17].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[17].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[17].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button18" Grid.Row="5" Grid.Column="1" Width="30" Height="30" Command="{Binding Fields[18].StepCommand}" CommandParameter="{Binding Fields[18].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[18].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[18].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[18].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button19" Grid.Row="5" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[19].StepCommand}" CommandParameter="{Binding Fields[19].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[19].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[19].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[19].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button20" Grid.Row="5" Grid.Column="5" Width="30" Height="30" Command="{Binding Fields[20].StepCommand}" CommandParameter="{Binding Fields[20].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[20].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[20].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[20].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button21" Grid.Row="6" Grid.Column="0" Width="30" Height="30" Command="{Binding Fields[21].StepCommand}" CommandParameter="{Binding Fields[21].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[21].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[21].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[21].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button22" Grid.Row="6" Grid.Column="3" Width="30" Height="30" Command="{Binding Fields[22].StepCommand}" CommandParameter="{Binding Fields[22].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[22].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[22].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[22].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+                <Button Name ="Button23" Grid.Row="6" Grid.Column="6" Width="30" Height="30" Command="{Binding Fields[23].StepCommand}" CommandParameter="{Binding Fields[23].Number}">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray" />
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonRoundStyle}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Fields[23].Player}" Value="1">
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[23].Player}" Value="2">
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Fields[23].Player}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+
+            </Grid>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button0}" ConnectedControl2="{Binding ElementName=Button2}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button3}" ConnectedControl2="{Binding ElementName=Button5}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button6}" ConnectedControl2="{Binding ElementName=Button8}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button9}" ConnectedControl2="{Binding ElementName=Button11}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button12}" ConnectedControl2="{Binding ElementName=Button14}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button15}" ConnectedControl2="{Binding ElementName=Button17}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button18}" ConnectedControl2="{Binding ElementName=Button20}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button21}" ConnectedControl2="{Binding ElementName=Button23}"/>
+
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button0}" ConnectedControl2="{Binding ElementName=Button21}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button3}" ConnectedControl2="{Binding ElementName=Button18}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button6}" ConnectedControl2="{Binding ElementName=Button15}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button1}" ConnectedControl2="{Binding ElementName=Button7}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button16}" ConnectedControl2="{Binding ElementName=Button22}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button8}" ConnectedControl2="{Binding ElementName=Button17}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button5}" ConnectedControl2="{Binding ElementName=Button20}"/>
+            <local:LineConnectorControl PositionRoot="{Binding ElementName=boardGrid}" ConnectedControl1="{Binding ElementName=Button2}" ConnectedControl2="{Binding ElementName=Button23}"/>
+            
+        </Grid>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="Aktuális játékos: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding CurrentPlayer}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="Következő lépés: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding CurrentAction}" />
+            </StatusBarItem>
+            <StatusBarItem />
+        </StatusBar>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock Text="Első játékos talon: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding Player1Talon}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="Második játékos talon: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding Player1Talon}" />
+            </StatusBarItem>
+            <StatusBarItem />
+        </StatusBar>
+    </Grid>
+</Window>
