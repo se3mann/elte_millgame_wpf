@@ -1,0 +1,19 @@
+@startuml
+
+class App <extends Application> {
+-_view: MainWindow
+-_model: MillGameModel
+-_viewModel: MillViewModel
+--
++App(): void
+-App_Startup(object sender, StartupEventArgs e): void
+-_view_Closing(object? sender, System.ComponentModel.CancelEventArgs e): void
+-ViewModel_NewGame(object? sender, EventArgs e): void
+-ViewModel_ExitGame(object? sender, System.EventArgs e): void
+- Model_GameOver(object? sender, MillEventArgs e): void
+-Model_PlayerHasToPass(object? sender, PassingEventArgs e): void
+..async..
+-ViewModel_LoadGame(object? sender, System.EventArgs e): void
+-ViewModel_SaveGame(object? sender, EventArgs e): void
+}
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+
+[App]
+[LineConnectorControl]
+
+package "ViewModel" {
+ [DelegateCommand]
+ [MillField]
+ [MillViewModel]
+ [ViewModelBase]
+}
+
+package "Model" {
+ [MillEventArgs]
+ [MillGameModel]
+ [PassingEventArgs]
+}
+
+package "View" {
+ [CircularButton]
+ [MainWindow]
+}
+
+package "Themes" {
+ [Generic]
+}
+
+package "Persistence" {
+ [Field]
+ [IMillDataAccess]
+ [MillDataException]
+ [MileFileDataAccess]
+ [MillTable]
+}
+
+[App] ..> Model : import
+[App] ..> ViewModel : import
+[App] ..> View : import
+[App] ..> Persistence : import
+Themes ..> [LineConnectorControl] : import
+
+View ..> Themes : import
+Model ..> Persistence : import
+ViewModel ..> Model : import
+@enduml
